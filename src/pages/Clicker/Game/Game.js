@@ -30,10 +30,18 @@ class Game extends React.Component {
             alert("You can't afford this!")
         }
     }
+    
+
+    componentWillUnmount() {
+        clearInterval(this.saveInterval);
+    }
     save() {
         for (let key in this.state) {
             setCookie(key, this.state[key]);
         }
+    }
+    componentDidMount() {
+        this.saveInterval = setInterval(() => this.save(), 60000);
     }
     render() {
         return (
