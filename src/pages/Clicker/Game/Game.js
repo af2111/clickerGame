@@ -1,6 +1,7 @@
 import React from "react";
-
-import Upgrade from "../Upgrade/Upgrade";
+import { Count } from "../Count/Count";
+import {Save} from "../Save/Save";
+import {PPCUpgrade} from "../PPCUpgrade/PPCUpgrade";
 import {getCookie, setCookie} from "../Util/cookies";
 class Game extends React.Component {
     constructor(props) {
@@ -11,17 +12,17 @@ class Game extends React.Component {
         }
         this.buyPPC=this.buyPPC.bind(this);
     }
-    setCount(val) {
+    setCount = (val) => {
         this.setState({
             count: val
         })
     }
-    setPPC(val) {
+    setPPC = (val) => {
         this.setState({
             ppc: val
         })
     }
-    buyPPC(price, amount) {
+    buyPPC = (price, amount) => {
         if(this.state.count >= price) {
             this.setCount(this.state.count - price);
             this.setPPC(this.state.ppc + amount)
@@ -35,7 +36,7 @@ class Game extends React.Component {
     componentWillUnmount() {
         clearInterval(this.saveInterval);
     }
-    save() {
+    save = () => {
         for (let key in this.state) {
             setCookie(key, this.state[key]);
         }
@@ -46,16 +47,10 @@ class Game extends React.Component {
     render() {
         return (
             <div id="game">
-                <div id="count">
-                    <cite id="ppcDisplay">You have {this.state.ppc} Points Per Click</cite>
-                    <h1 id="countDisplay">{this.state.count}</h1>
-                    <button className="countButton button" onClick={e => this.setCount(this.state.count + this.state.ppc, e)}>Click me!</button>
-                </div>
-                <div id="save">
-                    <button className="saveButton button" onClick={e => this.save(e)}>Save</button>
-                </div>
+                <Count ppc={this.state.ppc} count={this.state.count} onClick={this.setCount}/>
+                <Save onClick={this.save}/>
                 <div id="shop">
-                    <Upgrade amount={10} price={Math.floor(this.state.ppc * 0.1 * 1000)} onClick={this.buyPPC}/>
+                    <PPCUpgrade amount={10} price={Math.floor(this.state.ppc * 0.1 * 1000)} onClick={this.buyPPC}/>
                 </div>
             </div>
         );
