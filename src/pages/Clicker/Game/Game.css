@@ -1,0 +1,25 @@
+:root {
+    --dark-bg: rgb(0, 1, 49);
+}
+
+
+.button {
+    border-radius: 0px;
+    padding: 10px;
+    width: 100%;
+    margin-top: 20px;
+}
+.button:hover {
+    color: white;
+}
+body {
+    background-color: var(--dark-bg); 
+    color: rgb(238, 232, 232)
+}
+#game {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
